@@ -1,3 +1,8 @@
+import flatpickr from 'flatpickr';
+import 'flatpickr/dist/flatpickr.min.css';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
+
 const startBtn = document.querySelector('[data-start]');
 const daysEl = document.querySelector('[data-days]');
 const hoursEl = document.querySelector('[data-hours]');
@@ -28,6 +33,10 @@ function updateUI({ days, hours, minutes, seconds }) {
   secondsEl.textContent = addZero(seconds);
 }
 
+function addZero(value) {
+  return String(value).padStart(2, '0');
+}
+
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -53,7 +62,7 @@ const options = {
 
 flatpickr('#datetime-picker', options);
 
-document.addEventListener('click', (event) => {
+document.addEventListener('click', event => {
   const startButton = event.target.closest('[data-start]');
 
   if (!startButton) return;
@@ -83,7 +92,3 @@ document.addEventListener('click', (event) => {
     updateUI(convertMs(ms));
   }, 1000);
 });
-
-function addZero(value) {
-  return String(value).padStart(2, '0');
-}
